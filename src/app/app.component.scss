@@ -2,8 +2,19 @@
     box-sizing: border-box;
 }
 .container {
+    width: 100%;
     border: 1px solid black;
 }
-textarea {
+.content {
+    margin: 5%;
+    padding: 40px;
+    border: 1px solid black;
+}
+.resumo {
+    width: 47%;
     resize: none;
+}
+.titulo, .autor, .editora, .isbn, .genero, .situacao {
+    width: 50%;
+    padding-right: 40px;
 }

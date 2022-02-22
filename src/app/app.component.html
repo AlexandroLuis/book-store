@@ -9,41 +9,44 @@
 <body>
   <div class="container">
     <div class="content">
+      <h1>Informe os dados do Livro</h1>
       <form>
-        <mat-form-field appearance="outline">
-          <mat-label>Título</mat-label>
-          <input matInput placeholder="Placeholder">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Autor</mat-label>
-          <input matInput placeholder="Placeholder">
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Gênero</mat-label>
-          <mat-select>
-            <mat-option value="option1">Option 1</mat-option>
-            <mat-option value="option3">Option 3</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Avaliação</mat-label>
-          <mat-select>
-            <mat-option value="option1">Option 1</mat-option>
-            <mat-option value="option3">Option 3</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Editora</mat-label>
-          <input matInput placeholder="Placeholder">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
+        <mat-form-field class="isbn" appearance="outline">
           <mat-label>ISBN</mat-label>
-          <input matInput placeholder="Placeholder">
+          <input matInput placeholder="Ex. 978-85-508-0756-0">
         </mat-form-field>
+        <mat-form-field class="titulo" appearance="outline">
+          <mat-label>Título</mat-label>
+          <input matInput placeholder="Ex. Hábitos Atômicos">
+        </mat-form-field>
+        <mat-form-field class="autor" appearance="outline">
+          <mat-label>Autor</mat-label>
+          <input matInput placeholder="Ex. James Clear">
+        </mat-form-field>
+        <mat-form-field class="editora" appearance="outline">
+          <mat-label>Editora</mat-label>
+          <input matInput placeholder="Ex. Alta Life">
+        </mat-form-field>
+       
+          <mat-form-field class="genero" appearance="fill">
+            <mat-label>Gênero</mat-label>
+            <mat-select>
+              <mat-option value="option1">Option 1</mat-option>
+              <mat-option value="option3">Option 3</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="situacao" appearance="fill">
+            <mat-label>Situação</mat-label>
+            <mat-select>
+              <mat-option value="novo">Novo</mat-option>
+              <mat-option value="usado">Usado</mat-option>
+            </mat-select>
+          </mat-form-field>
         <mat-form-field class="resumo" appearance="fill">
-          <mat-label>Leave a comment</mat-label>
-          <textarea style="resize: none;"  matInput placeholder="Ex. It makes me feel..."></textarea>
-        </mat-form-field>
+          <mat-label>Resumo</mat-label>
+          <textarea style="resize: none;" rows="5" matInput placeholder="Ex. Repleto de estratégias testadas e aprovadas de autoaprimoramento, Hábitos Atômicos ensinará você a construir hábitos que funcionem para - e não contra - você."></textarea>
+        </mat-form-field><br>
+        <button mat-raised-button color="primary">Salvar</button>
       </form>      
     </div>
   </div>
