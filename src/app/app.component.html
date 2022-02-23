@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
   <div class="container">
     <div class="content">
@@ -13,42 +15,66 @@
       <form>
         <mat-form-field class="isbn" appearance="outline">
           <mat-label>ISBN</mat-label>
-          <input matInput placeholder="Ex. 978-85-508-0756-0">
+          <input [(ngModel)]="isbn" name="isbn" matInput placeholder="Ex. 978-85-508-0756-0">
         </mat-form-field>
         <mat-form-field class="titulo" appearance="outline">
           <mat-label>Título</mat-label>
-          <input matInput placeholder="Ex. Hábitos Atômicos">
+          <input [(ngModel)]="titulo" name="titulo" matInput placeholder="Ex. Hábitos Atômicos">
         </mat-form-field>
         <mat-form-field class="autor" appearance="outline">
           <mat-label>Autor</mat-label>
-          <input matInput placeholder="Ex. James Clear">
+          <input [(ngModel)]="autor" name="autor" matInput placeholder="Ex. James Clear">
         </mat-form-field>
         <mat-form-field class="editora" appearance="outline">
           <mat-label>Editora</mat-label>
-          <input matInput placeholder="Ex. Alta Life">
+          <input [(ngModel)]="editora" name="editora" matInput placeholder="Ex. Alta Life">
         </mat-form-field>
-       
-          <mat-form-field class="genero" appearance="fill">
-            <mat-label>Gênero</mat-label>
-            <mat-select>
-              <mat-option value="option1">Option 1</mat-option>
-              <mat-option value="option3">Option 3</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field class="situacao" appearance="fill">
-            <mat-label>Situação</mat-label>
-            <mat-select>
-              <mat-option value="novo">Novo</mat-option>
-              <mat-option value="usado">Usado</mat-option>
-            </mat-select>
-          </mat-form-field>
+
+        <mat-form-field class="genero" appearance="fill">
+          <mat-label>Gênero</mat-label>
+          <mat-select (selectionChange)="setGenero($event.value)" [(value)] = "genero">
+            <mat-option *ngFor="let genero of generos" [value]="genero">{{genero}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="situacao" appearance="fill">
+          <mat-label>Situação</mat-label>
+          <mat-select (selectionChange)="setSituacao($event.value)" [(value)] = "situacao">
+            <mat-option value="novo">Novo</mat-option>
+            <mat-option value="usado">Usado</mat-option>
+          </mat-select>
+        </mat-form-field>
         <mat-form-field class="resumo" appearance="fill">
           <mat-label>Resumo</mat-label>
-          <textarea style="resize: none;" rows="5" matInput placeholder="Ex. Repleto de estratégias testadas e aprovadas de autoaprimoramento, Hábitos Atômicos ensinará você a construir hábitos que funcionem para - e não contra - você."></textarea>
+          <textarea [(ngModel)]="resumo" name="resumo" style="resize: none;" rows="5" matInput
+            placeholder="Ex. Repleto de estratégias testadas e aprovadas de autoaprimoramento, Hábitos Atômicos ensinará você a construir hábitos que funcionem para - e não contra - você."></textarea>
         </mat-form-field><br>
-        <button mat-raised-button color="primary">Salvar</button>
-      </form>      
+        <button class="btnSalvar" mat-raised-button color="primary" (click)="salvar()">Salvar</button>
+      </form>
+      <h1>Lista de Livros</h1>
+      <hr>
+      <mat-card class="card-livro" *ngFor="let livro of livros let i = index">
+        <mat-card-title>{{livro.getTitulo()}}</mat-card-title>
+        <mat-card-subtitle>{{livro.getAutor()}}</mat-card-subtitle>
+        <mat-card-content>
+          <p>
+            <strong>Gênero:</strong> {{livro.getGenero()}}
+          </p>
+          <p>
+            <strong>Editora:</strong> {{livro.getEditora()}}
+          </p>
+          <p>
+            <strong>Situação:</strong> {{livro.getSituacao()}}
+          </p>
+          <textarea class="txt-area" rows="5" readonly>{{livro.getResumo()}}
+          </textarea>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="editar(i)">EDITAR</button>
+          <button mat-button (click)="excluir(i)">REMOVER</button>
+        </mat-card-actions>
+      </mat-card>
     </div>
   </div>
 </body>
+
 </html>
