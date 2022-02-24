@@ -47,6 +47,7 @@ export class AppComponent {
     if(this.indice == -1) {
       let livro = new Livro(this.isbn, this.titulo, this.autor, this.genero, this.situacao, this.resumo, this.editora);
       this.livros.push(livro);
+      alert("Livro salvo com sucesso!");
     } else {
       this.livros[this.indice].setAutor(this.autor)
       this.livros[this.indice].setTitulo(this.titulo)
@@ -65,8 +66,6 @@ export class AppComponent {
     this.resumo = "";
     this.genero = "";
     this.situacao = "";
-    
-
   }
   public editar(index: number) : void {
     this.indice = index;
@@ -77,6 +76,7 @@ export class AppComponent {
     this.resumo = this.livros[index].getResumo();
     this.genero = this.livros[index].getGenero();
     this.situacao = this.livros[index].getSituacao();
+    window.scrollTo(0,0);
 
   }
   public excluir(index: number) : void {
