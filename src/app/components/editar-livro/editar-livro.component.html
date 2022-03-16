@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="content">
+      <h1>Informe os dados do Livro</h1>
+      <hr>
+      <form id="formulario-livro" [formGroup]="formEditar" (ngSubmit)="submitForm()">
+        <mat-form-field class="isbn" appearance="outline">
+          <mat-label>ISBN</mat-label>
+          <input formControlName="isbn" name="isbn" matInput placeholder="Ex. 978-85-508-0756-0" mask="000-00-000-0000-0">
+        </mat-form-field>
+        <mat-form-field class="titulo" appearance="outline">
+          <mat-label>Título</mat-label>
+          <input formControlName="titulo" name="titulo" matInput placeholder="Ex. Hábitos Atômicos">
+        </mat-form-field>
+        <mat-form-field class="autor" appearance="outline">
+          <mat-label>Autor</mat-label>
+          <input formControlName="autor" name="autor" matInput placeholder="Ex. James Clear">
+        </mat-form-field>
+        <mat-form-field class="editora" appearance="outline">
+          <mat-label>Editora</mat-label>
+          <input formControlName="editora" name="editora" matInput placeholder="Ex. Alta Life">
+        </mat-form-field>
+
+        <mat-form-field class="genero" appearance="fill">
+          <mat-label>Gênero</mat-label>
+          <mat-select (selectionChange)="setGenero($event.value)" formControlName="genero">
+            <mat-option *ngFor="let genero of generos" [value]="genero">{{genero}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="situacao" appearance="fill">
+          <mat-label>Situação</mat-label>
+          <mat-select (selectionChange)="setSituacao($event.value)" formControlName="situacao">
+            <mat-option value="novo">Novo</mat-option>
+            <mat-option value="usado">Usado</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="resumo" appearance="fill">
+          <mat-label>Resumo</mat-label>
+          <textarea formControlName="resumo" name="resumo" style="resize: none;" rows="5" matInput
+            placeholder="Ex. Repleto de estratégias testadas e aprovadas de autoaprimoramento, Hábitos Atômicos ensinará você a construir hábitos que funcionem para - e não contra - você."></textarea>
+        </mat-form-field><br>
+        <button class="btnSalvar" mat-raised-button color="primary" type="submit">Atualizar</button>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html> 
