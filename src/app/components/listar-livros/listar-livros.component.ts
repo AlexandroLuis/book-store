@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Livro } from 'src/app/models/livro';
-import { LivroService } from 'src/app/services/livro.service';
+import { LivroFirebaseService } from 'src/app/services/livro-firebase.service';
 
 @Component({
   selector: 'app-listar-livros',
@@ -10,26 +10,35 @@ import { LivroService } from 'src/app/services/livro.service';
 })
 export class ListarLivrosComponent implements OnInit {
   livros: Livro[] = []
-  constructor(private service: LivroService, private router: Router) { }
+  constructor(private service: LivroFirebaseService, private router: Router) { }
 
   ngOnInit(): void {
-    this.livros = this.service.getLivros();
+    this.carregarLivros();
+  }
+  public carregarLivros() {
+    this.service.getLivros().subscribe(response => {
+      this.livros = response.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data() as Livro
+        } as Livro
+      })
+    }, err => {
+      console.log(err);
+    })
   }
   public irParaCriarLivro() {
     this.router.navigate(['/criarLivro'])
   }
-  public irParaEditar(id: number) {
-    this.router.navigate(['/editarLivro', id])
+  public irParaEditar(livro: Livro) {
+    this.router.navigate(['/editarLivro', livro.id])
   }
-  public excluir(id : number) : void {
-    let resultado = confirm("Deseja excluir o livro: " + this.service.getLivroById(id).getTitulo() + " ?");
+  public excluir(livro: Livro) : void {
+    let resultado = confirm("Deseja excluir o livro: " + livro.titulo + " ?");
     if(resultado) {
-      if(this.service.delete(id)) {
-        alert("Livro excluído com sucesso!");
-      } else {
-        alert("Erro ao excluir livro");
-      }
-      
+      this.service.delete(livro)
+      .then(() => {alert("Livro excluído com sucesso!");})
+      .catch(() => {alert("Erro ao excluir livro");})  
     }
   }
 

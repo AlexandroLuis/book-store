@@ -1,3 +1,5 @@
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -13,6 +15,7 @@ import { CriarLivroComponent } from './components/criar-livro/criar-livro.compon
 import { EditarLivroComponent } from './components/editar-livro/editar-livro.component';
 import { ListarLivrosComponent } from './components/listar-livros/listar-livros.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { environment } from 'src/environments/environment';
 
 
 @NgModule({
@@ -33,7 +36,9 @@ import { NgxMaskModule } from 'ngx-mask';
     MatCardModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxMaskModule.forRoot()
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    NgxMaskModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

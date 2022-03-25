@@ -15,24 +15,24 @@
       <h1>Lista de Livros</h1>
       <hr>
       <mat-card class="card-livro" *ngFor="let livro of livros let i = index">
-        <mat-card-title>{{livro.getTitulo()}}</mat-card-title>
-        <mat-card-subtitle>{{livro.getAutor()}}</mat-card-subtitle>
+        <mat-card-title>{{livro.titulo}}</mat-card-title>
+        <mat-card-subtitle>{{livro.autor}}</mat-card-subtitle>
         <mat-card-content>
           <p>
-            <strong>Gênero:</strong> {{livro.getGenero()}}
+            <strong>Gênero:</strong> {{livro.genero}}
           </p>
           <p>
-            <strong>Editora:</strong> {{livro.getEditora()}}
+            <strong>Editora:</strong> {{livro.editora}}
           </p>
           <p>
-            <strong>Situação:</strong> {{livro.getSituacao()}}
+            <strong>Situação:</strong> {{livro.situacao}}
           </p>
-          <textarea class="txt-area" rows="5" readonly>{{livro.getResumo()}}
+          <textarea class="txt-area" rows="5" readonly>{{livro.resumo}}
           </textarea>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button (click)="irParaEditar(i)">EDITAR</button>
-          <button mat-button (click)="excluir(i)">REMOVER</button>
+          <button mat-button (click)="irParaEditar(livro)">EDITAR</button>
+          <button mat-button (click)="excluir(livro)">REMOVER</button>
         </mat-card-actions>
       </mat-card>
     </div>

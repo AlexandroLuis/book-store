@@ -1,3 +1,4 @@
+import { LivroFirebaseService } from './../../services/livro-firebase.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -13,7 +14,7 @@ export class EditarLivroComponent implements OnInit {
   public formEditar: FormGroup;
   public generoSelecionado: string = "";
   public situacaoSelecionada: string = "";
-  public indice: number = -1;
+  public id?: any;
   public generos: string[] = [
     'Romance',
     'Drama',
@@ -35,7 +36,7 @@ export class EditarLivroComponent implements OnInit {
     'Terror',
     'Material Acadêmico'
   ];
-  constructor(private formBuilder: FormBuilder, private service: LivroService, private router: Router, private actRoute: ActivatedRoute) {
+  constructor(private formBuilder: FormBuilder, private service: LivroFirebaseService, private router: Router, private actRoute: ActivatedRoute) {
     this.formEditar = formBuilder.group({
       isbn: ["", [Validators.required, Validators.minLength(5)]],
       titulo: ["", [Validators.required, Validators.minLength(3)]],
@@ -48,21 +49,21 @@ export class EditarLivroComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  
+
     this.actRoute.params.subscribe((parametros) => {
-      if(parametros['id']) {
-        this.indice = parametros['id'];
-        let livro = this.service.getLivroById(this.indice);
-        this.setGenero(livro.getGenero())
-        this.setSituacao(livro.getSituacao());
-        this.formEditar = this.formBuilder.group({
-          isbn: [livro.getIsbn(), [Validators.required, Validators.minLength(5)]],
-          titulo: [livro.getTitulo(), [Validators.required, Validators.minLength(3)]],
-          autor: [livro.getAutor(), [Validators.required, Validators.minLength(3)]],
-          genero: [livro.getGenero(), [Validators.required]],
-          situacao: [livro.getSituacao(), [Validators.required]],
-          resumo: [livro.getResumo(), [Validators.required]],
-          editora: [livro.getEditora(), [Validators.required, Validators.minLength(4)]],
+      if (parametros['id']) {
+        this.id = parametros['id'];
+        this.service.getLivroById(this.id).subscribe(response => {
+          let livro : any = response
+          this.formEditar = this.formBuilder.group({
+            isbn: [livro.isbn, [Validators.required, Validators.minLength(5)]],
+            titulo: [livro.titulo, [Validators.required, Validators.minLength(3)]],
+            autor: [livro.autor, [Validators.required, Validators.minLength(3)]],
+            genero: [livro.genero, [Validators.required]],
+            situacao: [livro.situacao, [Validators.required]],
+            resumo: [livro.resumo, [Validators.required]],
+            editora: [livro.editora, [Validators.required, Validators.minLength(4)]],
+          })
         })
       }
     })
@@ -79,15 +80,12 @@ export class EditarLivroComponent implements OnInit {
       this.salvar();
   }
   public salvar(): void {
-    let livro = new Livro(this.formEditar.controls["isbn"].value, this.formEditar.controls["titulo"].value, this.formEditar.controls["autor"].value, this.formEditar.controls
-    ["genero"].value, this.formEditar.controls["situacao"].value, this.formEditar.controls["resumo"].value, this.formEditar.controls["editora"].value);
-    if(this.service.update(this.indice, livro)) {
-      alert("Livro editado com sucesso!");
+    this.service.update(this.formEditar.value, this.id)
+    .then(() => {
+      alert("Livro editado com sucesso!")
       this.router.navigate(['/listaDeLivros']);
-    } else {
-      alert("Erro ao editar livro");
-    }
-    
+    })
+    .catch(() => {alert("Erro ao editar livro")})
   }
   public setGenero(value: string) {
     this.formEditar.controls["genero"].setValue(value);
@@ -95,5 +93,7 @@ export class EditarLivroComponent implements OnInit {
   public setSituacao(value: string) {
     this.formEditar.controls["situacao"].setValue(value);
   }
-
+  public redirectToListaDeLivros() {
+    this.router.navigate(['']);
+  }
 }

@@ -1,3 +1,4 @@
+import { LivroFirebaseService } from 'src/app/services/livro-firebase.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -34,7 +35,7 @@ export class CriarLivroComponent implements OnInit {
     'Terror',
     'Material Acadêmico'
   ];
-  constructor(private formBuilder: FormBuilder, private service: LivroService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private service: LivroFirebaseService, private router: Router) {
     this.formCadastrar = formBuilder.group({
       isbn: ["", [Validators.required, Validators.minLength(5)]],
       titulo: ["", [Validators.required, Validators.minLength(3)]],
@@ -60,15 +61,23 @@ export class CriarLivroComponent implements OnInit {
       this.salvar();
   }
   public salvar(): void {
-    this.service.insert(new Livro(this.formCadastrar.controls["isbn"].value, this.formCadastrar.controls["titulo"].value, this.formCadastrar.controls["autor"].value, this.formCadastrar.controls
-    ["genero"].value, this.formCadastrar.controls["situacao"].value, this.formCadastrar.controls["resumo"].value, this.formCadastrar.controls["editora"].value))
-    alert("Livro salvo com sucesso!");
-    this.router.navigate(['/listaDeLivros']);
+    this.service.insert(this.formCadastrar.value)
+      .then(() => {
+        alert("Livro salvo com sucesso!");
+        this.router.navigate(['/listaDeLivros']);
+      })
+      .catch(() => {
+        alert("Erro ao salvar livro");
+      })
+
   }
   public setGenero(value: string) {
     this.formCadastrar.controls["genero"].setValue(value);
   }
   public setSituacao(value: string) {
     this.formCadastrar.controls["situacao"].setValue(value);
+  }
+  public redirectToListaDeLivros() {
+    this.router.navigate(['']);
   }
 }

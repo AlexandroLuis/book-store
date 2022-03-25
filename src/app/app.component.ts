@@ -52,7 +52,7 @@ export class AppComponent {
         this.livros.push(livro);
         alert("Livro salvo com sucesso!");
       } else {
-        this.livros[this.indice].setAutor(this.autor)
+        /*this.livros[this.indice].setAutor(this.autor)
         this.livros[this.indice].setTitulo(this.titulo)
         this.livros[this.indice].setEditora(this.editora)
         this.livros[this.indice].setResumo(this.resumo)
@@ -60,7 +60,7 @@ export class AppComponent {
         this.livros[this.indice].setSituacao(this.situacao)
         this.livros[this.indice].setIsbn(this.isbn)
         this.indice = -1;
-        alert("Livro atualizado com sucesso!");
+        alert("Livro atualizado com sucesso!");*/
       }
       this.titulo = "";
       this.isbn = "";
@@ -73,7 +73,7 @@ export class AppComponent {
 
   }
   public editar(index: number): void {
-    this.indice = index;
+    /*this.indice = index;
     this.titulo = this.livros[index].getTitulo();
     this.isbn = this.livros[index].getIsbn();
     this.autor = this.livros[index].getAutor();
@@ -81,7 +81,7 @@ export class AppComponent {
     this.resumo = this.livros[index].getResumo();
     this.genero = this.livros[index].getGenero();
     this.situacao = this.livros[index].getSituacao();
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 0);*/
 
   }
   public excluir(index: number): void {
