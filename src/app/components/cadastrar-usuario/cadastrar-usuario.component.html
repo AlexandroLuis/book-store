@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookStore</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="content" name="oioi">
+            <h1>Informe seus dados</h1>
+            <form id="formulario-livro" [formGroup]="formCadastrar" (ngSubmit)="submitForm()">
+                <div>
+                    <mat-form-field class="email" appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input formControlName="email" name="email" matInput>
+                        <mat-error *ngIf="formCadastrar.controls['email'].invalid">{{getMessageError("e")}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field class="password" appearance="outline">
+                        <mat-label>Senha</mat-label>
+                        <input formControlName="password" type="password" name="password" matInput>
+                        <mat-error *ngIf="formCadastrar.controls['password'].invalid">{{getMessageError("s")}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field class="password" appearance="outline">
+                        <mat-label>Confirmar Senha</mat-label>
+                        <input formControlName="confirmPassword" type="password" name="confirmPassword" matInput>
+                        <mat-error *ngIf="formCadastrar.controls['confirmPassword'].invalid">{{getMessageError("cs")}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <button class="btnEntrar" mat-raised-button color="primary" type="submit">Cadastrar</button><br>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

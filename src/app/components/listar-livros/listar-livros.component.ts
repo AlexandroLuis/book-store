@@ -1,7 +1,11 @@
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Livro } from 'src/app/models/livro';
-import { LivroFirebaseService } from 'src/app/services/livro-firebase.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogExcluirComponent } from '../dialog-excluir/dialog-excluir.component';
+import { LivroService } from 'src/app/services/livro.service';
 
 @Component({
   selector: 'app-listar-livros',
@@ -9,14 +13,15 @@ import { LivroFirebaseService } from 'src/app/services/livro-firebase.service';
   styleUrls: ['./listar-livros.component.scss']
 })
 export class ListarLivrosComponent implements OnInit {
-  livros: Livro[] = []
-  constructor(private service: LivroFirebaseService, private router: Router) { }
+  lista_imagens?: any[];
+  livros: Livro[] = [];
+  constructor(private livroService: LivroService, private router: Router, private matSnackBar : MatSnackBar, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.carregarLivros();
   }
   public carregarLivros() {
-    this.service.getLivros().subscribe(response => {
+    this.livroService.getLivros().subscribe(response => {
       this.livros = response.map(e => {
         return {
           id: e.payload.doc.id,
@@ -28,18 +33,12 @@ export class ListarLivrosComponent implements OnInit {
     })
   }
   public irParaCriarLivro() {
-    this.router.navigate(['/criarLivro'])
+    this.router.navigate(['/dashboard/criarLivro'])
   }
   public irParaEditar(livro: Livro) {
-    this.router.navigate(['/editarLivro', livro.id])
+    this.router.navigate(['dashboard/editarLivro', livro.id])
   }
-  public excluir(livro: Livro) : void {
-    let resultado = confirm("Deseja excluir o livro: " + livro.titulo + " ?");
-    if(resultado) {
-      this.service.delete(livro)
-      .then(() => {alert("Livro excluído com sucesso!");})
-      .catch(() => {alert("Erro ao excluir livro");})  
-    }
+  openDialog(livro: Livro) {
+    this.dialog.open(DialogExcluirComponent, {data : livro});
   }
-
 }

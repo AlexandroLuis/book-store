@@ -7,8 +7,9 @@ export class Livro {
     situacao: string = "";
     resumo: string = "";
     editora: string = "";
+    downloadURL: string = "";
 
-    constructor(isbn: string, titulo: string, autor: string, genero: string, situacao: string, resumo: string, editora: string) {
+    constructor(isbn: string, titulo: string, autor: string, genero: string, situacao: string, resumo: string, editora: string, downloadURL: string) {
         this.isbn = isbn;
         this.titulo = titulo;
         this.autor = autor;
@@ -16,5 +17,6 @@ export class Livro {
         this.situacao = situacao;
         this.resumo = resumo;
         this.editora = editora;
+        this.downloadURL = downloadURL;
     }
 }

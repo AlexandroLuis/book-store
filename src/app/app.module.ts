@@ -16,14 +16,29 @@ import { EditarLivroComponent } from './components/editar-livro/editar-livro.com
 import { ListarLivrosComponent } from './components/listar-livros/listar-livros.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { environment } from 'src/environments/environment';
-
+import { LoginComponent } from './components/login/login.component';
+import { UsuarioComponent } from './components/usuario/usuario.component';
+import { CadastrarUsuarioComponent } from './components/cadastrar-usuario/cadastrar-usuario.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import {MatIconModule} from '@angular/material/icon';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { HomeComponent } from './components/home/home.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DialogExcluirComponent } from './components/dialog-excluir/dialog-excluir.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CriarLivroComponent,
     EditarLivroComponent,
-    ListarLivrosComponent
+    ListarLivrosComponent,
+    LoginComponent,
+    UsuarioComponent,
+    CadastrarUsuarioComponent,
+    HomeComponent,
+    DialogExcluirComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +54,12 @@ import { environment } from 'src/environments/environment';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     NgxMaskModule.forRoot(),
+    MatSnackBarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

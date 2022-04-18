@@ -11,50 +11,64 @@
 <body>
   <div class="container">
     <div class="content" name="oioi">
-      <h1>Informe os dados do Livro</h1>
-      <hr>
+
       <form id="formulario-livro" [formGroup]="formCadastrar" (ngSubmit)="submitForm()">
+        <h1 class="tituloFormulario">Informe os dados do Livro</h1>
 
         <mat-form-field class="isbn" appearance="outline">
           <mat-label>ISBN</mat-label>
           <input formControlName="isbn" name="isbn" matInput placeholder="Ex. 978-85-508-0756-0"
             mask="000-00-000-0000-0">
+          <mat-error *ngIf="formCadastrar.controls['isbn'].invalid">{{getErrorMessage("i")}}</mat-error>
         </mat-form-field>
-
 
         <mat-form-field class="titulo" appearance="outline">
           <mat-label>Título</mat-label>
           <input formControlName="titulo" name="titulo" matInput placeholder="Ex. Hábitos Atômicos">
+          <mat-error *ngIf="formCadastrar.controls['titulo'].invalid">{{getErrorMessage("t")}}</mat-error>
         </mat-form-field>
         <mat-form-field class="autor" appearance="outline">
           <mat-label>Autor</mat-label>
           <input formControlName="autor" name="autor" matInput placeholder="Ex. James Clear">
+          <mat-error *ngIf="formCadastrar.controls['autor'].invalid">{{getErrorMessage("a")}}</mat-error>
         </mat-form-field>
         <mat-form-field class="editora" appearance="outline">
           <mat-label>Editora</mat-label>
           <input formControlName="editora" name="editora" matInput placeholder="Ex. Alta Life">
+          <mat-error *ngIf="formCadastrar.controls['editora'].invalid">{{getErrorMessage("e")}}</mat-error>
         </mat-form-field>
 
         <mat-form-field class="genero" appearance="fill">
           <mat-label>Gênero</mat-label>
-          <mat-select (selectionChange)="setGenero($event.value)">
+          <mat-select (selectionChange)="setGenero($event.value)" formControlName="genero">
             <mat-option *ngFor="let genero of generos" [value]="genero">{{genero}}</mat-option>
           </mat-select>
+          <mat-error *ngIf="formCadastrar.controls['genero'].invalid">{{getErrorMessage("g")}}</mat-error>
         </mat-form-field>
         <mat-form-field class="situacao" appearance="fill">
           <mat-label>Situação</mat-label>
-          <mat-select (selectionChange)="setSituacao($event.value)">
+          <mat-select (selectionChange)="setSituacao($event.value)" formControlName="situacao">
             <mat-option value="novo">Novo</mat-option>
             <mat-option value="usado">Usado</mat-option>
           </mat-select>
+          <mat-error *ngIf="formCadastrar.controls['situacao'].invalid">{{getErrorMessage("s")}}</mat-error>
         </mat-form-field>
+        <div>
+
+        </div>
         <mat-form-field class="resumo" appearance="fill">
           <mat-label>Resumo</mat-label>
           <textarea formControlName="resumo" name="resumo" style="resize: none;" rows="5" matInput
             placeholder="Ex. Repleto de estratégias testadas e aprovadas de autoaprimoramento, Hábitos Atômicos ensinará você a construir hábitos que funcionem para - e não contra - você."></textarea>
-        </mat-form-field><br>
+          <mat-error *ngIf="formCadastrar.controls['resumo'].invalid">{{getErrorMessage("r")}}</mat-error>
+        </mat-form-field>
+        <span class="fieldImagem">
+          <h2 class="labelImagem">Escolha uma imagem</h2>
+          <input formControlName="imagem" name="imagem" class="inputImagem custom-file-input" id="file" type="file" content="dd">
+        </span>
+
+        <br>
         <button class="btnSalvar" mat-raised-button color="primary" type="submit">Salvar</button>
-        <button class="btnSalvar" mat-raised-button color="warn" (click)="redirectToListaDeLivros()">Voltar</button>
       </form>
     </div>
   </div>

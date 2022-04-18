@@ -1,0 +1,7 @@
+<h1 mat-dialog-title>Tem certeza que deseja excluir?</h1>
+<div mat-dialog-content><h2 style="text-align: center;">{{livro.titulo}}</h2></div>
+<img src="{{livro.downloadURL}}" style="margin-left: 10vh; width: 30vh; height: 40vh;">
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button mat-dialog-close (click)="excluir()">Excluir</button>
+</div>
